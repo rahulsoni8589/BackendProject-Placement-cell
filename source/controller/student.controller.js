@@ -7,6 +7,7 @@ export default class StudentController{
         this.Repository = new StudentRepository();
     }
 
+    // view all the students 
     async viewAllStudent(req,res,next){
         try{
             const students = await this.Repository.allStudent()
@@ -16,10 +17,12 @@ export default class StudentController{
         }
     }
 
+    //render add new student page
     async getAddStudent(req,res,next){
         res.render("addstudent",{access:true})
     }
 
+    //add the new student to db and then render the all student
     async postAddStudent(req,res,next){
         try{
             const data = req.body;
@@ -30,7 +33,7 @@ export default class StudentController{
             next()
         }    
     }
-
+    // update student status [placed or notplace]
     async updateStatus(req,res,next){
         try{
             console.log(req.params.id)
@@ -43,6 +46,4 @@ export default class StudentController{
             next()
         }    
     }
-
-    
-    };
+};

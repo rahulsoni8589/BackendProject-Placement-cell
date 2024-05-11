@@ -34,6 +34,7 @@ app.use(express.json())
 //cookie parser to parse the data received from the cookies
 app.use(cookieParser())
 
+// controller class initialize
 const controller = new Controller();
 const studentController = new StudentController()
 const interviewController = new InterviewController()
@@ -115,7 +116,7 @@ app.get("/download",(req,res,next)=>{
     interviewController.downloadData(req,res,next)
 })
 
-// access
+// error handling route
 app.use((err,req,res,next)=>{
     if(err instanceof errorHandlerMiddleware){
         return res.status(err.statusCode).send(err.message)

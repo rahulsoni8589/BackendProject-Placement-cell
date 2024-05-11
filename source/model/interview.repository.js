@@ -2,6 +2,8 @@ import { ObjectId } from "mongodb";
 import interviewModel from "./interview.schema.js";
 
 export default class InterviewRepo{
+
+    // adding new interview scheduled to the database
     async addInterview(data){
         const {id,name,company,date} = data
         const result = await new interviewModel({
@@ -13,6 +15,7 @@ export default class InterviewRepo{
         return result
     }
 
+    // fetching the data of all the interviews
     async allInterview(){
         const interviewers = await interviewModel.find().populate({
             path: 'studentId',
@@ -24,6 +27,7 @@ export default class InterviewRepo{
         return interviewers
     }
 
+    // fetching the data of all the interviews
     async download(){
         const interviewers = await interviewModel.find().populate({
             path: 'studentId',
@@ -32,12 +36,13 @@ export default class InterviewRepo{
         
         return interviewers
     }
-
+    // fetching the data to render the update-interview-page along with the preexisting data
     async interviewUpdate(id){
         const data = await interviewModel.findById(id)
         return data       
     }
 
+    // making changes in db on interview status
     async postInterviewUpdate(newStatus,id){
         console.log(id)
         const update = await interviewModel.findById(id)

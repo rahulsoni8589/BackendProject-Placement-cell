@@ -6,6 +6,7 @@ export default class Controller{
         this.Repository = new Repository()
     }
 
+    // render signup page
     getSignUp(req,res){
         try{        
             res.render("signup", {access:false});
@@ -14,7 +15,7 @@ export default class Controller{
         }
         
     }
-
+    // render signin page
     getSignIn(req,res){
         try{
             res.render("signin", {access:false});
@@ -24,6 +25,7 @@ export default class Controller{
         
     }
 
+    // adding registered data to db and render login page
     async postSignUp(req,res,next){
         try{
             console.log(req.body)
@@ -33,8 +35,7 @@ export default class Controller{
             next(err)
         }
     }
-    // ('rememberme', '1', { maxAge: 900000, httpOnly: true })
-
+    // checking the data of the user and then rendering the home page
     async postSignIn(req,res){
         console.log(req.body)
         const user = await this.Repository.findUser(req.body)

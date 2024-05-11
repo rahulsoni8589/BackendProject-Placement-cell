@@ -9,6 +9,7 @@ export default class InterviewController{
         this.interviewRepo = new InterviewRepo()
     }
 
+    //render new interview page
     async addInterview(req,res,next){
         try{
             const id = req.params.id
@@ -19,6 +20,7 @@ export default class InterviewController{
         }
     }
 
+    //schedule new interview 
     async postAddInterview(req,res,next){
         try{
             // console.log(req.body)
@@ -33,6 +35,7 @@ export default class InterviewController{
         
     }
 
+    //rendering all the interviews 
     async getAllInterview(req,res,next){
         try{
             const interview = await this.interviewRepo.allInterview()
@@ -45,6 +48,7 @@ export default class InterviewController{
         
     }
 
+    //renderint the update interview status page
     async updateInterview(req,res,next){
         try{
             const id = req.params.id;
@@ -58,6 +62,7 @@ export default class InterviewController{
         
     }
 
+    //updating the interview status [pass fail not_taken, hold] 
     async postUpdateInterview(req,res,next){
         try{
             const {status,id} = req.body;
@@ -70,6 +75,7 @@ export default class InterviewController{
         
     }
 
+    // downloading the data (student details along with the interview) in cvs format 
     async downloadData(req,res,next){
         const data = await this.interviewRepo.download()
         const arrayData = data.map(students=>{
@@ -96,8 +102,6 @@ export default class InterviewController{
             throw new errorHandlerMiddleware("Error writing file", 400)
         })
 
-        res.download(dir) // this will download the file
-
-        // res.status(200).send(data)
+        res.download(dir) 
     }
 }
